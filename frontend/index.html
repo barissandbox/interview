@@ -1,0 +1,119 @@
+<!doctype html>
+<!-- Tauri desktop shell for the Interview assistant application. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="ct-app" class="ct-shell">
+      <header id="statusRow" class="ct-status-row">
+        <span id="statusText">Ready.</span>
+        <span id="accountLabel" class="ct-account-label">Not signed in</span>
+      </header>
+      <div id="limitRow" class="ct-limit-row">
+        <span id="chatgptLimitText">--</span>
+        <span id="deepgramLimitText">Deepgram: --</span>
+      </div>
+
+      <section id="controlsPanel" class="ct-controls">
+        <div class="ct-api-row">
+          <button id="deepgramLink" class="ct-api-link" type="button" title="Open Deepgram Console">Deepgram API</button>
+          <input id="apiKeyInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter API key..." aria-label="Deepgram API key">
+          <button id="testButton" class="mini-button" type="button">Test &amp; Save</button>
+        </div>
+
+        <div class="ct-chatgpt-row">
+          <button id="chatgptLoginButton" class="ct-primary ct-auth-button" type="button">Sign in with ChatGPT</button>
+          <select id="modelSelect" title="ChatGPT model" aria-label="ChatGPT model"></select>
+          <select id="thinkingSelect" title="Thinking" aria-label="Thinking"></select>
+          <select id="verbositySelect" title="Verbosity" aria-label="Verbosity">
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+          </select>
+          <select id="fastSelect" title="Service tier" aria-label="Service tier">
+            <option value="fast">fast</option>
+            <option value="normal">normal</option>
+          </select>
+          <button id="modelRefreshButton" class="ct-icon-button" type="button" title="Refresh models and thinking variants" aria-label="Refresh models">&#8635;</button>
+          <button id="chatgptSignOutButton" class="mini-button ct-signout-button" type="button" hidden>Sign out</button>
+        </div>
+
+        <div class="ct-source-row">
+          <button id="speakerToggle" class="ct-switch" type="button" aria-pressed="true"><span></span></button>
+          <label for="speakerSelect">Speaker</label>
+          <select id="speakerSelect" title="Speaker" aria-label="Speaker"></select>
+        </div>
+
+        <div class="ct-source-row">
+          <button id="microphoneToggle" class="ct-switch" type="button" aria-pressed="true"><span></span></button>
+          <label for="microphoneSelect">Mic</label>
+          <select id="microphoneSelect" title="Microphone" aria-label="Microphone"></select>
+        </div>
+
+        <div class="ct-cv-row">
+          <input id="cvFileInput" type="file" accept="application/pdf,.pdf" hidden>
+          <button id="uploadCvButton" class="mini-button" type="button">CV</button>
+          <span id="cvStatus" class="ct-muted">No CV loaded.</span>
+          <button id="removeCvButton" class="mini-button ct-delete-button" type="button" hidden>Remove</button>
+        </div>
+
+        <div class="ct-settings-row">
+          <input id="targetPositionInput" type="text" maxlength="160" placeholder="Target position" aria-label="Target position">
+          <select id="answerTypeSelect" title="Answer type" aria-label="Answer type">
+            <option value="details">With Details</option>
+            <option value="keywords">Keywords</option>
+            <option value="sentences">Full Sentences</option>
+          </select>
+          <select id="languageSelect" title="Source language" aria-label="Source language"></select>
+        </div>
+
+        <div class="ct-nav-row">
+          <button id="compactButton" class="mini-button" type="button">Compact</button>
+          <button id="alwaysOnTopButton" class="mini-button" type="button" aria-pressed="false">Always on Top</button>
+          <button id="previousButton" class="ct-icon-button" type="button" title="Previous transcript" aria-label="Previous transcript">&lt;</button>
+          <span id="transcriptCounter" class="ct-counter">0/0</span>
+          <button id="nextButton" class="ct-icon-button" type="button" title="Next transcript" aria-label="Next transcript">&gt;</button>
+          <button id="newButton" class="ct-icon-button" type="button" title="New transcript" aria-label="New transcript">+</button>
+          <button id="deleteButton" class="ct-icon-button ct-delete-button" type="button" title="Delete transcript" aria-label="Delete transcript">x</button>
+          <button id="answerButton" class="ct-primary" type="button">Answer</button>
+          <div class="ct-session-actions">
+            <button id="startButton" class="ct-primary" type="button">Start</button>
+            <button id="stopButton" type="button" hidden>Stop</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="ct-body">
+        <div class="ct-transcript-header">
+          <span id="transcriptMeta">No transcript selected</span>
+          <button id="copyButton" class="mini-button ct-copy-button" type="button" title="Copy" aria-label="Copy">&#x29C9;</button>
+        </div>
+        <div id="transcriptText" class="ct-transcript"></div>
+        <div id="answerSplitter" class="ct-splitter" role="separator" aria-orientation="horizontal" tabindex="0"></div>
+        <div class="ct-answer-panel">
+          <div id="questionRow" class="ct-question-row" hidden>
+            <span id="questionCounter" class="ct-counter">0/0</span>
+            <button id="questionPrevButton" class="ct-icon-button" type="button" title="Previous question">&lt;</button>
+            <button id="questionAutoButton" class="ct-icon-button is-active" type="button" title="Auto-follow questions" aria-label="Auto-follow questions">&#10074;&#10074;</button>
+            <button id="questionNextButton" class="ct-icon-button" type="button" title="Next question">&gt;</button>
+            <div id="questionText" class="ct-question-text"></div>
+          </div>
+          <div id="answerText" class="ct-transcript ct-answer"></div>
+        </div>
+      </section>
+
+      <footer id="appFooter" class="app-footer">
+        <button id="developerLink" class="footer-link" type="button">Developed by</button>
+        <button id="sourceLink" class="footer-link" type="button">Source</button>
+      </footer>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

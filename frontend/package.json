@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node scripts/prepare-dist.mjs && tsc",
+    "watch": "node scripts/prepare-dist.mjs && tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

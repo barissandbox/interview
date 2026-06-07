@@ -1,0 +1,12 @@
+[package]
+name = "typeid"
+version = "1.0.3"
+edition = "2018"
+rust-version = "1.34"
+description = "Const TypeId and non-'static TypeId"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/dtolnay/typeid"
+
+[lib]
+name = "typeid"
+path = "src/lib.rs"
